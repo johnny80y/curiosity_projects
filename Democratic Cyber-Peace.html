@@ -1,0 +1,651 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Personal Projects</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Navigation Bar -->
+			<header id="header" style="position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); padding: 1rem 0; z-index: 1000; border-bottom: 1px solid #eee;">
+				<div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: center; align-items: center;">
+					<nav style="display: flex; justify-content: center; align-items: center; width: 100%;">
+						<a href="index.html" style="text-decoration: none; color: #333; font-weight: 600; font-size: 1.1rem;">
+							← Back to Main Page
+						</a>
+					</nav>
+				</div>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="divided" style="margin-top: 60px;">			
+
+				<!-- Title -->
+					<section class="banner style1 orient-left content-align-center image-position-right onload-image-fade-in onload-content-fade-right" style="min-height: 300px;">
+						<div class="content" style="text-align: center; max-width: 800px; margin: 0 auto; padding: 2rem 2rem 1rem 2rem;">
+							<h1>The Democratic Peace in Cyberspace</h1>
+							<p class="major">Democratic Dyads Fight Less – But What About Cyberattacks?</p>
+						</div>
+					</section>
+					
+				<!-- Content -->
+					<div class="content" style="text-align: justify; max-width: 800px; margin: 0 auto; padding: 2rem;">
+						<p><i>This article investigates whether the pacifying effects of the democratic and capitalist peace theories extend to state-sponsored hostilities in cyberspace. Utilizing the European Repository of Cyber Incidents (EuRepoC) dataset spanning 2002 to 2024, the study analyses dyadic conflict behaviour through logistic regression models equipped with temporal splines and lagged independent variables. The quantitative analysis reveals robust support for a democratic cyber peace, demonstrating that dyads with higher baseline democracy scores experience a significantly lower risk of mutual cyberattacks. Conversely, evidence for the capitalist peace is less robust, while traditional drivers of kinetic conflict—such as geographic proximity, major power involvement, and ongoing physical disputes—are shown to increase the likelihood of digital hostilities. Ultimately, these findings confirm that established international relations paradigms can effectively explain state behaviour in the digital realm, despite persistent data limitations regarding incident attribution and under-reporting.</i></p>
+
+
+						<p><h2>1. Introduction</h2></p>
+
+						<p>
+							All modern-day conflicts have some form of digital component and most kinetic conflicts are accompanied by hostilities in cyberspace. Whether it be hacktivists supporting their preferred side, or nation-state threat actors, the cyber realm is too tightly integrated in modern life to not be affected by traditional conflicts. For this reason, this article examines the question: Do kinetic disputes and cyberattacks follow similar dynamics?
+						<br>
+							Researchers have long known that democracies rarely if ever fight other democracies. The so-called “democratic peace” is well-established in scientific literature. However, some argue that it is actually capitalism / economic liberalism that leads to peace, not democracy. I will not weigh in on this debate but I will test whether the statistical models supporting both research programs also show similar results for cyberattacks. To put it in simple terms: We know that democracies do not fight other democracies – but does this restraint extend to cyberspace?
+						<br>
+							To explore this question, I will use the most recent version of the European Repository of Cyber Incidents (EuRepoC) and combine it with data about military spending, GDP per capita, military alliances, economic freedom indicators, measures of democracy, and other well-established control variables. I will use logistic regression models to analyse the data. While this article is not a scientific paper, it mostly follows scientific best practices and methods. My goal is to provide a quantitative dive into the fascinating world of nation-state cyberattacks and the attributes that make dyads (pairs of states) more or less likely to experience cyber hostilities. 
+						<br>
+							For those, who are only interested in results, I advise you to skip to section 5. For the more scientifically minded, I will continue with a brief overview of some core literature concerning the democratic and capitalist peace research programs.
+						</p>
+
+						<p><h2>2. Cursory Literature Review</h2></p>
+
+						<p>
+							One of the seminal papers that helped to establish the democratic peace as a research paradigm was published by Oneal and Russett (1999). They tested Realist theories and Kantian principles to discover that democratic dyads are less likely to experience disputes compared with more autocratic dyads. The most well-known criticism of this research stems from Gartzke (2007). He argued that “democracy cohabitates with peace” (p. 167) but it is actually liberal economic processes that cause peace. His theoretical reasoning is that, first, states have less need to go to war over certain resources if they can simply trade for them. Second, as states become more developed, the importance of land and mineral resources declines compared to intellectual and financial capital. Third, developed countries often share cultural and social bonds. In Gartzke and Hewitt (2010), similar mechanisms are discussed and they find that free markets, economic development, and similar interests lead to peace, but not democracy. Mousseau (2010) also finds support for the capitalist peace. Gartzke and Weisiger (2013) took a systemic view and argued that conflict among democracies is scarce when there are few democracies in the international system. However, if there are more and more democracies, their preferences diverge and they have less need to band together. The democratic peace is, thus, conditional on the wider system. One year later, Gartzke and Weisiger (2014) strengthened their case by providing evidence that systemic peace is not linked to a more democratic world but instead to a more developed world. 
+						<br>
+							Several authors sharply criticised the capitalist peace research, often citing methodological mistakes. Dafoe (2011), for example, noted that Gartzke’s 2007 paper mistakenly omitted observations, incorrectly implemented temporal splines, and used regional dummy variables as controls without sufficient justification. Choi (2011) waged similar criticisms and found that the democratic peace remains robust when correctly specifying the statistical models. Choi (2016) also criticised Gartzke and Weisiger’s research, finding a robust and substantive effect of democracy on peace. Further, Schrodt (2004) pointed out that arguments against the democratic peace have to rely on complex statistical and “esoteric” reasoning. In contrast, arguments against the capitalist peace can point to specific wars that involved economically liberal opponents.
+						<br>
+							Very little research has explored the impact of capitalism or democracy on cyber hostilities. Hunter, Craig, Garrett, and Rutland (2022) examined the impact of regime type on cyber conflict. Using both a monadic and a dyadic research design, they found that authoritarian states are more likely to initiate cyberattacks than more democratic states. When democracies do conduct cyber attacks, they rarely target other democracies. Notably, Hunter et al. (2022) built somewhat unconventional statistical models in the context of democratic peace research. They included multiple unconventional control variables (e.g. inflation or battlefield deaths per state-year) and discarded commonly-used variables such as geographic proximity, military alliances, capability ratios, etc. This means that their results cannot be compared to the mainstream democratic peace literature. Geiger (2021) found that democracy and economic freedom are linked to peace in cyberspace. This is my own research, which I am re-testing in this article using more and better data. State-sponsored cyberattacks are still a relatively new phenomenon (the first coded incident in the EuRepoC dataset was in 2002), so every additional year of high-quality data makes a significant difference in the reliability of statistical results. 
+						</p>
+
+						<p><h2>3. Theory & Hypotheses</h2></p>
+
+						<p>
+							Cyberattacks are different from kinetic attacks. They are difficult to attribute and less likely to be seen as an acts of war. Also, most state-sponsored cyberattacks are means of collecting intelligence rather than inflicting damage. Nonetheless, it is likely that cyber attacks will follow similar patterns as traditional disputes. After all, cyberattacks still present a form of hostility and can sour a bilateral relationship. It is not uncommon for ambassadors to be summoned following the discovery of a cyber attack, such as in 2025 when the German government summoned the Russian ambassador over Russia’s breach of Germany’s Air Traffic Control (Tagesschau, 2025). Also, cyberattacks are frequently used within the context of traditional conflicts or they are used for signalling when tensions between two states are running high. I will test two hypotheses to discover how similar/dissimilar the onset of cyber hostilities is compared with traditional conflict. 
+
+						<br><br>
+							
+							<i>H1: More democratic state dyads are less likely to experience cyber attacks.</i>
+						
+						<br><br>
+						
+							<i>H2: More economically liberal state dyads are less likely to experience cyber attacks.</i>
+							
+						<br><br>
+							
+							It should be noted that the substantive impact of regime type and economic liberalism are likely smaller in cyberspace. The reason is that cyber attacks can sour bilateral relations but much less so than kinetic military confrontations do. Cyberattacks may lead to sanctions or diplomatic tensions but they have not by themselves led to a declaration of war or a total breakdown of relations between any two states. The risk of using cyberattacks, even against friendly nations, is much lower compared with military force. Therefore, it should be expected that restraining factors also carry less weight in cyberspace than they do in other domains.
+
+
+						</p>
+						
+						<p><h2>4. Research Design</h2></p>
+
+						<p>
+							To test the two hypotheses, I use the EuRepoC dataset (Zettl-Schabath et al., 2025). The unit of observation is dyad-year, so I have one row for each pair of states and each year. I filter the EuRepoC dataset to only include state-sponsored cyberattacks and exclude any unattributed or criminal attacks. Naturally, the number of unreported cyber attacks is much higher than what is recorded in this dataset but there is no truly reliable way of studying the unknown. The dataset includes cyberattacks spanning the years from 2002 to 2024. The dependent variable is binary, taking on a 1 for years in which a particular interstate dyad experienced one or more cyberattacks. 
+
+							<br>
+
+							To test H1, I use <i>Democracy(LOW)</i>, which codes the democracy level of the less-democratic state. The reason is that conflict is assumed to be driven mostly by the less-restrained state. This is the so-called “weak link” assumption (Oneal & Russett, 1999). Most research has used Polity scores but I opt for the Electoral Democracy Index from the “V-Dem” Varieties of Democracy Project (Coppedge, 2025). The reason is that V-Dem offers full coverage of the observation period, whereas Polity ends coverage in 2018.
+
+							<br>
+
+							To measure H2 and how capitalist or economically free a state is, I use the Index of Economic Freedom, provided by the Heritage Foundation (2025). The variable <i>EconomicFreedom(LOW)</i> also follows the weak-link assumption that the less restrained state would be the main driver of hostilities.
+
+							<br>
+
+							For control variables, I follow much of the democratic and capitalist peace literature. The first is GDP per capita, taken from the World Bank’s (2026) World Development Indicators. I use the natural log of this variable due to its heavy right skew and, again, use the lower of the two country scores, so the variable is <i>log_GDPpc(LOW)</i>. This variable is important because a country’s development may impact its likelihood of using cyberattacks as a tool of statecraft. Next, the political distance between both states is included <i>Democracy(DIST)</i> and denotes the mathematical difference in democracy scores for each dyad. This is a standard control as larger political distances between states have often been found to increase conflict. The variable <i>MajorPower</i> is a dummy denoting the presence of a major power in the dyad. The coding follows the Correlates of War Project (2025). It has often been observed that major powers are more likely to be involved in disputes, so including this variable is a literature standard. Another dummy variable is <i>Alliance</i>, denoting whether the two states in a dyad are in a military alliance or not. Data is taken from Gibler (2009). There has been some controversy in the literature whether alliances actually reduce the likelihood of war but Choi (2025) finds that alliances have a measurable impact, so I include this control variable. Another standard control is the ratio of military capabilities, which I proxy by using military expenditure in constant USD (SIPRI, 2026). The variable is <i>log_MilEx(DIST)</i> denoting the absolute difference in military spending between both countries in a dyad. As with GDP per capita, I use the natural log of this variable. The variable <i>KineticConflict</i> is uncommon in similar research as it is usually used as the dependent variable. However, as the presence of a kinetic conflict likely increases the risk for cyberattacks, I will test the statistical impact of adding this variable as a control. The data is taken from the Uppsala Conflict Data Program (Davies, Pettersson, Sollenberg & Ödberg, 2025). Finally, the variable <i>SharedRegion</i> denotes whether or not both states are located in the same geographic region. This is also taken from V-Dem (Coppedge, 2025). Here, I deviate from the norm as most researchers use direct contiguity (shared borders) or the distance between state capitals. However, as cyber attacks do not depend on direct geographic proximity a shared border should matter less. Still, states are more likely to have conflicts of interests with states nearby rather than with states halfway around the globe. Therefore, I code for geographic regions instead of direct proximity or capital distance.
+
+							<br>
+
+							As the dependent variable is binary, I will run a logistic regression, including temporal splines (Beck, Katz & Tucker, 1998) and a one-year lag of the independent variables to prevent endogeneity and reverse causality (Oneal & Russett, 1999; Gartzke & Weisiger, 2013; Choi, 2024). 
+
+						</p>
+
+						<p><h2>5. Quantitative Analysis</h2></p>
+
+						<p>
+							The dataset contains about 450.000 observations, out of which 681 dyad-years experienced one or more cyber attacks. Due to missing values, a portion of these observations are not usable in logistic regression and get dropped. I ran four main models with slightly different specifications. Model 1 includes only the main variables, <i>Democracy(LOW)</i>, <i>Democracy(DIST)</i> and <i>EconomicFreedom(LOW)</i> along with temporal splines. The data is restricted to relevant dyads only. Relevant dyads are defined as those that share a geographic region or that include at least one major power. This is common practice and makes theoretical sense (Choi, 2011; Oneal & Russett, 1999) but reduces the number of dyad-years that experienced a cyberattack down to 545. Model 2 adds in control variables to understand their effect on the examined relationship. Model 3 is functionally identical to model 2 but drops the restriction to relevant dyads. This significantly increases the amount of observations for this model. It is not clear that the concept of relevant dyads applies to cyber attacks in equal measure as to conventional disputes. Geographic proximity, for example, has little meaning in cyberspace. Therefore, I will focus on models 3 and 4, which are run on the full set of dyads. Finally, model 4 adds a control for kinetic conflict within a dyad. Table 1 displays the regression coefficients.
+
+						</p>
+						
+						<p>
+							<table style="border-collapse: collapse; margin: 2rem auto; font-family: 'Times New Roman', serif; font-size: 0.9rem; width: 90%; max-width: 800px;">
+								<thead>
+									<tr>
+										<td colspan="5" style="text-align: center; border-bottom: 2px solid black; padding: 8px;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 8px;"></td>
+										<td colspan="4" style="text-align: center; font-style: italic;">Dependent variable:</td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 8px;"></td>
+										<td colspan="4" style="text-align: center; border-bottom: 2px solid black; padding: 8px;">Cyberattack(DUMMY)</td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 8px; font-weight: bold;"></td>
+										<td style="text-align: center; padding: 8px; font-weight: bold;">(1)</td>
+										<td style="text-align: center; padding: 8px; font-weight: bold;">(2)</td>
+										<td style="text-align: center; padding: 8px; font-weight: bold;">(3)</td>
+										<td style="text-align: center; padding: 8px; font-weight: bold;">(4)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">Democracy(LOW)</td>
+										<td style="text-align: center; padding: 6px 8px;">-5.319<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-5.740<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-5.899<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-5.981<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.466)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.399)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.377)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.383)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">EconomicFreedom(LOW)</td>
+										<td style="text-align: center; padding: 6px 8px;">-0.006</td>
+										<td style="text-align: center; padding: 6px 8px;">-0.006<sup>*</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-0.020<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-0.021<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.004)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.004)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.003)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.003)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">Democracy(DIST)</td>
+										<td style="text-align: center; padding: 6px 8px;">1.162<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-0.350<sup>*</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-0.509<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-0.523<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.167)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.188)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.167)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.168)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">log_GDPpc(LOW)</td>
+										<td style="text-align: center; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px;">0.471<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">0.545<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">0.563<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.043)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.038)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.038)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">log_MilEx(DIST)</td>
+										<td style="text-align: center; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px;">0.175<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">0.187<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">0.180<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.019)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.016)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.015)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">SharedRegion</td>
+										<td style="text-align: center; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px;">1.124<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">1.442<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">1.375<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.164)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.123)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.125)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">MajorPower</td>
+										<td style="text-align: center; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px;">1.635<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">2.254<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">2.332<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.219)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.110)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.110)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">Alliance</td>
+										<td style="text-align: center; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px;">0.016</td>
+										<td style="text-align: center; padding: 6px 8px;">0.051</td>
+										<td style="text-align: center; padding: 6px 8px;">0.080</td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.189)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.186)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.187)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">KineticConflict</td>
+										<td style="text-align: center; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px;">5.027<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.469)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">TemporalSpline1</td>
+										<td style="text-align: center; padding: 6px 8px;">-2.510<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-2.526<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-2.606<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-2.560<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.241)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.251)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.223)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.224)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">TemporalSpline2</td>
+										<td style="text-align: center; padding: 6px 8px;">-1.980<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-1.789<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-1.572<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-1.489<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.288)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.293)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.227)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.227)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">TemporalSpline3</td>
+										<td style="text-align: center; padding: 6px 8px;">-6.967<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-5.886<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-5.854<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-5.591<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.335)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.331)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.300)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.301)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">TemporalSpline4</td>
+										<td style="text-align: center; padding: 6px 8px;">-1.400<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-1.629<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-1.039<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-1.058<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.313)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.317)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.234)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.235)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">Constant</td>
+										<td style="text-align: center; padding: 6px 8px;">-1.339<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-7.995<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-8.528<sup>***</sup></td>
+										<td style="text-align: center; padding: 6px 8px;">-8.740<sup>***</sup></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;"></td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.206)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.467)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.365)</td>
+										<td style="text-align: center; padding: 6px 8px; font-size: 0.85rem;">(0.370)</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 2px solid black;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px; font-weight: bold;">Observations</td>
+										<td style="text-align: center; padding: 6px 8px;">49,287</td>
+										<td style="text-align: center; padding: 6px 8px;">48,992</td>
+										<td style="text-align: center; padding: 6px 8px;">408,476</td>
+										<td style="text-align: center; padding: 6px 8px;">408,476</td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px; font-weight: bold;">Log Likelihood</td>
+										<td style="text-align: center; padding: 6px 8px;">-2,353.258</td>
+										<td style="text-align: center; padding: 6px 8px;">-2,107.861</td>
+										<td style="text-align: center; padding: 6px 8px;">-3,073.154</td>
+										<td style="text-align: center; padding: 6px 8px;">-3,025.299</td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px; font-weight: bold;">Akaike Inf. Crit.</td>
+										<td style="text-align: center; padding: 6px 8px;">4,722.515</td>
+										<td style="text-align: center; padding: 6px 8px;">4,241.723</td>
+										<td style="text-align: center; padding: 6px 8px;">6,172.308</td>
+										<td style="text-align: center; padding: 6px 8px;">6,078.598</td>
+									</tr>
+									<tr>
+										<td colspan="5" style="border-bottom: 2px solid black;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px; font-style: italic;">Note:</td>
+										<td colspan="4" style="text-align: right; padding: 6px 8px; font-size: 0.85rem;"><sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01</td>
+									</tr>
+								</tbody>
+							</table>
+							<p style="text-align: center; font-style: italic; margin-top: -1rem; margin-bottom: 2rem; font-size: 0.85rem;">Table 1: Logistic regression coefficients for models 1-4.</p>
+						</p>
+
+						<p>
+							As logistic regression coefficients are not intuitively meaningful, table 2 shows how a change in one variable impacts the likelihood of cyber attacks in a dyad. It is based on model 4 and compares individual variable changes to a baseline probability of cyberattacks. For this purpose, a baseline dyad is defined as follows: <i>Democracy(LOW)</i>, <i>Democracy(DIST)</i>, <i>EconomicFreedom(LOW)</i>, <i>log_GDPpc(LOW)</i>, and <i>log_MilEx(DIST)</i> are set to their median values. <i>SharedRegion</i>, <i>MajorPower</i>, <i>Alliance</i>, and <i>KineticConflict</i> are set to 0.
+						</p>
+
+						<p>
+							<table style="border-collapse: collapse; margin: 2rem auto; font-family: 'Times New Roman', serif; font-size: 0.9rem; width: 90%; max-width: 800px;">
+								<thead>
+									<tr>
+										<td colspan="3" style="text-align: center; border-bottom: 2px solid black; padding: 8px;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: center; padding: 8px; font-weight: bold;">Scenario</td>
+										<td style="text-align: center; padding: 8px; font-weight: bold;">Probabilities</td>
+										<td style="text-align: center; padding: 8px; font-weight: bold;">Percentage Change</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">Baseline: Variables at median/mean, dummies = 0</td>
+										<td style="text-align: center; padding: 6px 8px;">0.0002</td>
+										<td style="text-align: center; padding: 6px 8px;">0%</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">Increasing lower democracy score to 90th percentile</td>
+										<td style="text-align: center; padding: 6px 8px;">0.0000</td>
+										<td style="text-align: center; padding: 6px 8px;">-92%</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">Increasing regime type distance to 90th percentile</td>
+										<td style="text-align: center; padding: 6px 8px;">0.0002</td>
+										<td style="text-align: center; padding: 6px 8px;">-20%</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">Increasing lower economic freedom score to 90th percentile</td>
+										<td style="text-align: center; padding: 6px 8px;">0.0002</td>
+										<td style="text-align: center; padding: 6px 8px;">-22%</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">Doubling the lower GDP per capita score</td>
+										<td style="text-align: center; padding: 6px 8px;">0.0003</td>
+										<td style="text-align: center; padding: 6px 8px;">48%</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">Doubling the difference in military expenditure</td>
+										<td style="text-align: center; padding: 6px 8px;">0.0002</td>
+										<td style="text-align: center; padding: 6px 8px;">13%</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">The states share a geographic region</td>
+										<td style="text-align: center; padding: 6px 8px;">0.0008</td>
+										<td style="text-align: center; padding: 6px 8px;">295%</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">At least one state is a major power</td>
+										<td style="text-align: center; padding: 6px 8px;">0.0021</td>
+										<td style="text-align: center; padding: 6px 8px;">928%</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">The states share an alliance</td>
+										<td style="text-align: center; padding: 6px 8px;">0.0002</td>
+										<td style="text-align: center; padding: 6px 8px;">8%</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="border-bottom: 1px solid #ddd;"></td>
+									</tr>
+									<tr>
+										<td style="text-align: left; padding: 6px 8px;">The states are engaged in a physical conflict</td>
+										<td style="text-align: center; padding: 6px 8px;">0.0295</td>
+										<td style="text-align: center; padding: 6px 8px;">14701%</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="border-bottom: 2px solid black;"></td>
+									</tr>
+								</tbody>
+							</table>
+							<p style="text-align: center; font-style: italic; margin-top: -1rem; margin-bottom: 2rem; font-size: 0.85rem;">Table 2: Percentage Changes based on Model 4.</p>
+						</p>
+
+						<p>
+							Across all models, the coefficient for <i>Democracy(LOW)</i> is significant at the 1% level and negative. Hypothesis 1 predicted that more democratic dyads would be less likely to experience cyber attacks. The models supports this and table 2 shows that this effect is substantively meaningful. Raising <i>Democracy(LOW)</i> from its median value to the 90th percentile reduces the risk for cyberattacks in a dyad-year by 92%. Given this and the coefficient’s p-value, we can reject the null hypothesis at the 99% confidence level.
+
+							<br>
+
+							Hypothesis 2 predicted the same effect for <i>EconomicFreedom(LOW)</i>. However, for relevant dyads (models 1 and 2), the coefficient fails to reach the 95% significance level. However, the coefficients are significant when tested on the entire dataset. Substantively, model 4 calculates a  22% reduction in risk when increasing the lower economic freedom score from its median value to the 90th percentile. This gives support to hypothesis 2, though given its lack of significance for relevant dyads, I am hesitant to draw a strong conclusion in either direction. 
+
+							<br>
+
+							<i>Democracy(DIST)</i>, measuring how different the two regimes in a dyad are, is also not fully robust. It fails to be significant in model 2 but gains significance when all dyads are included in the data (models 3 and 4). In terms of the impact size, table 2 shows that an increase in regime type difference from its median value to the 90th percentile, leads to a 20% decrease in cyber attack risk. This means that highly asymmetric dyads actually fight less in cyberspace. This is contrary to intuition but might be explained by Hunter et al. (2022), who find that autocracies initiate more cyberattacks. This means dyads containing two autocracies may experience cyberattacks more frequently than if one of the states is a generally more peaceful democracy. However, more research is needed to confirm the robustness and possible explanations of this finding. This observation could also be an artifact of incomplete data or the fact that engaging in state-sponsored cyberattacks is still relatively uncommon in the wider international system.
+
+							<br>
+
+							GDP per capita and differences in military expenditure are significant and positive. This means that higher values in these variables increase the risk of cyber attacks. The effect sizes are also meaningful, with a 48% and 13% change in risk respectively, when doubling the value.
+
+							<br>
+
+							As with traditional conflicts, dyads that share geographic proximity and dyads that include a major power are significant and positive. These factors are known to increase the risk of kinetic disputes and this observation holds true for cyberspace as well. Note that the predicted effects are enormous with 295% and 928% respectively. The same can be said for the presence of a kinetic conflict in a dyad. This massively increases the risk of cyber attacks occurring by 14701%. Be aware that such enormous effect sizes must be viewed with a large amount of caution as they are often driven by inaccuracies in the sample. For example, kinetic conflicts are exceedingly rare in the data with only 40 positive observations. This is too few to place any weight on the calculated effect size. Nonetheless, it appears that all three dummies increase the likelihood of cyber attacks in a dyad. The presence of an alliance does not appear to have an impact. The variable is insignificant for all models.
+
+						</p>
+
+						<p><h2>6. Conclusion</h2></p>
+
+						<p>
+							Scholars of international relations have found much evidence that democracy and capitalism have pacifying effects on states. Two states that are both very democratic or economically liberal, are unlikely to fight. I attempted to bridge the gap between this research and the emerging research on interstate cyber attacks. By relying heavily on proven model designs, I was able to show that democracy and, to a less-robust degree, economic freedom, have a pacifying effect on state dyads in cyberspace. Other variables such as GDP per capita, differences in military spending, the presence of a major power, the presence of a kinetic conflict, and geographic proximity were shown to increase the risk of cyber attacks. With this brief research project, I attempted to replicate and improve my master’s thesis (Geiger, 2021) now that a few more years of data about cyber attacks are available. Overall, the findings are similar but more data has led to more reliable results. Despite this, the data is still far from perfect. It is probable that the vast majority of cyberattacks go unreported and even for those that are, attribution is often lacking. Also, a few states are driving a disproportionate proportion of the reported attacks. Nearly all countries have offensive military capabilities but not all have offensive cyber capabilities or the willingness to use them. These and other problems with the data are important to keep in mind when looking at the regression results and the substantive effects listed in table 2.
+
+							<br>
+
+							In the research about state-sponsored cyber attacks, there is still a significant amount of low-hanging fruit. While I am merely a hobby researcher and this article is not a peer reviewed piece of scientific literature, I hope to inspire more research on the topic. I myself might conduct further analyses on directed dyads or by exploring monadic cyber attack figures. While we will never have perfect data on cyber attacks, there is plenty of fascinating research left to be done.
+
+						</p>
+
+						<p><h2>References</h2></p>
+
+						<p>
+							<li>
+								Beck, N., Katz, J. & Tucker, R. (1998) Taking Time Seriously: Time-Series-Cross-Section Analysis with a Binary Dependent Variable. <i>American Journal of Political Science</i>, 42(4), pp. 1260-1288.
+							</li>
+							<li>
+								Choi, S. (2011) Re-Evaluating Capitalist and Democratic Peace Models, <i>International Studies Quarterly</i>, 55, pp. 759-769.
+							</li>
+							<li>
+								Choi, S. (2016) A Menace to the Democratic Peace? Dyadic and Systemic Difference, <i>International Studies Quarterly</i>, 60(3), pp. 573–577.
+							</li>
+							<li>
+								Choi, S. (2024) Can trade and security alliance help reduce interstate war?, <i>PLoS ONE</i>, 19(6), pp. 1-13.
+							</li>
+							<li>
+								Choi, S. (2025) Do Alliances Deter War?, <i>Foreign Policy Analysis</i>, 21, pp. 1-53.
+							</li>
+							<li>
+								Coppedge, Michael, John Gerring, Carl Henrik Knutsen, Staffan I. Lindberg, Jan Teorell, David Altman, Fabio Angiolillo, Michael Bernhard, Agnes Cornell, M. Steven Fish, Linnea Fox, Lisa Gastaldi, Haakon Gjerløw, Adam Glynn, Ana Good God, Sandra Grahn, Allen Hicken, Katrin Kinzelbach, Kyle L. Marquardt, Kelly McMann, Valeriya Mechkova, Anja Neundorf, Pamela Paxton, Daniel Pemstein, Johannes von Römer, Brigitte Seim, Rachel Sigman, Svend-Erik Skaaning, Jeffrey Staton, Aksel Sundström, Marcus Tannenberg, Eitan Tzelgov, Yi-ting Wang, Felix Wiebrecht, Tore Wig, and Daniel Ziblatt (2025) V-Dem Codebook v15, <i>Varieties of Democracy (V-Dem) Project</i>.
+							</li>
+							<li>
+								Correlates of War Project (2025) State System Membership, v2024.
+							</li>
+							<li>
+								Dafoe, A. (2011) Statistical Critiques of the Democratic Peace: Caveat Emptor, <i>American Journal of Political Science</i>, 55(2), pp. 247-262.
+							</li>
+							<li>
+								Davies, S., Pettersson, T., Sollenberg, M., & Öberg, M. (2025) Organized violence 1989–2024, and the challenges of identifying civilian victims. <i>Journal of Peace Research</i>, 62(4), 1223-1240.
+							</li>
+							<li>
+								Gartzke, E. (2007) The Capitalist Peace, <i>American Journal of Political Science</i>, 51(1), pp. 166–191. 
+							</li>
+							<li>
+								Gartzke, E. & Hewitt, J. (2010) International Crises and the Capitalist Peace, <i>International Interactions</i>, 36, pp. 115-145.
+							</li>
+							<li>
+								Gartzke, E. & Weisiger, A. (2013) Permanent Friends? Dynamic Difference and the Democratic Peace, <i>International Studies Quarterly</i>, 57(1), pp. 171-185.
+							</li>
+							<li>
+								Gartzke, E. & Weisiger, A. (2014) Under Construction: Development, Democracy, and Difference as Determinants of Systemic Liberal Peace, <i>International Studies Quarterly</i>, 58(1), pp. 130-145.								
+							</li>
+							<li>
+								Geiger, J. (2021) The Democratic and Capitalist Peace in Cyberspace. <i>Pax et Bellum Journal</i>, 8, pp. 5-26.
+							</li>
+							<li>
+								Gibler, D. (2009) International military alliances, 1648-2008. <i>CQ Press</i>. 
+							</li>
+							<li>
+								Heritage Foundation (2025) The Index of Economic Freedom.
+							</li>
+							<li>
+								Hunter, L., Craig, A., Garrett, E. & Rutland, J. (2022) Democracy and Cyberconflict: How Regime Type Affects State-Sponsored Cyberattacks. <i>Journal of Cyber Policy</i>, pp. 1-23.
+							</li>
+							<li>
+								Mousseau, M. (2010) Coming to Terms with the Capitalist Peace, <i>International Interactions</i>, 36, pp. 185-213.
+							</li>
+							<li>
+								Oneal, J., & Russett, B. (1999) The Kantian Peace: The Pacific Benefits of Democracy, Interdependence, and International Organizations, <i>World Politics</i>, 52(1), pp. 1-37.
+							</li>
+							<li>
+								Schrodt, P. (2004) Democratic Peace or Liberal Peace: The Debate, <i>International Studies Review</i>, 6(2), pp. 292-294.
+							</li>
+							<li>
+								SIPRI (2026) SIPRI Military Expenditure Database.
+							</li>
+							<li>
+								Tagesschau (2025) Bundesregierung bestellt russischen Botschafter ein. 12 December 2025, Available at: https://www.tagesschau.de/inland/botschafter-russland-cyberangriffe-100.html 
+							</li>
+							<li>
+								World Bank (2026) World Development Indicators.
+							</li>
+							<li>
+								Zettl-Schabath, K., Bund, J., Müller, M., Borrett, C., Hemmelskamp, J., Alibegovic, A., Bajra, E., Jazxhi, A., Kellenter, E., Sachs, A., & Shelley, C. (2025). Global Dataset of Cyber Incidents (1.3.2) [Data set]. <i>European Repository of Cyber Incidents</i>.
+							</li>
+						</p>
+
+						<p>
+							Replication data and code available from: 
+							<a href="https://github.com/johnny80y/Cyberattacks-and-the-Democtratic-Peace">https://github.com/johnny80y/Cyberattacks-and-the-Democtratic-Peace</a>
+						</p>
+
+					</div>
+
+				<!-- Footer -->
+					<footer class="wrapper style1 align-center">
+						<div class="inner">
+							<ul class="icons">
+								<li><a href="https://social.vivaldi.net/@potterhead" class="icon brands style2 fa-mastodon"><span class="label">Twitter</span></a></li>
+								<li><a href="https://www.linkedin.com/in/johannes-geiger/" class="icon brands style2 fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
